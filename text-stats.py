@@ -23,13 +23,23 @@ def most_common_word(text):
   return most_common
 
 # Endpoints
-@app.route("/", methods=["POST"])
+@app.route("/count", methods=["POST"])
 def handle_text():
   text = request.data.decode("utf-8")
   word_count = count_words(text)
+  return f"Word count: {word_count}"
+
+@app.route("/average", methods=["POST"])
+def handle_text():
+  text = request.data.decode("utf-8")
   avg_length = avg_word_length(text)
+  return f"Average word length: {avg_length:.2f}"
+  
+  @app.route("/mostcommon", methods=["POST"])
+def handle_text():
+  text = request.data.decode("utf-8")
   most_common = most_common_word(text)
-  return f"Word count: {word_count}, Average word length: {avg_length:.2f}, Most common word: {most_common}"
+  return f"Most common word: {most_common}"
 
 if __name__ == "__main__":
   app.run(debug=True)
